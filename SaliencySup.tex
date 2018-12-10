@@ -1,0 +1,151 @@
+%\documentclass[10pt,twocolumn,letterpaper,draft]{article}
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{overpic}
+
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setdescription{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+
+% Include other packages here, before hyperref.
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+
+\cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{159} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\newcommand{\figref}[1]{Figure \ref{#1}}
+\newcommand{\tabref}[1]{Tabale \ref{#1}}
+\newcommand{\equref}[1]{Equation \ref{#1}}
+\newcommand{\secref}[1]{Section \ref{#1}}
+\newcommand{\cmm}[1]{\textcolor[rgb]{0,0.6,0}{CMM: #1}}
+\newcommand{\todo}[1]{{\textcolor{red}{\bf [#1]}}}
+\newcommand{\alert}[1]{\textcolor[rgb]{.6,0,0}{#1}}
+
+\newcommand{\IT}{IT\cite{98pami/Itti}}
+\newcommand{\MZ}{MZ\cite{03ACMMM/Ma_Contrast-based}}
+\newcommand{\GB}{GB\cite{07ANIPS/harel_graph}}
+\newcommand{\SR}{SR\cite{07cvpr/hou_SpectralResidual}}
+\newcommand{\FT}{FT\cite{09cvpr/Achanta_FTSaliency}}
+\newcommand{\CA}{CA\cite{10cvpr/goferman_context}}
+\newcommand{\LC}{LC\cite{06acmmm/ZhaiS_spatiotemporal}}
+\newcommand{\AC}{AC\cite{08cvs/achanta_salient}}
+
+\newcommand{\PutCap}{}
+
+%\newcommand{\PutCap}{\put(2, 0){(a)  ~~~~~~~~~~(b) \IT ~~~~(c) \MZ ~~~(d) \GB ~~~~(e) \SR ~~~~(f) \AC ~~~ (g) \CA ~~~(h) \FT ~~~~~(i) \LC ~~~~~    ~~(j) HC ~~~~~~~(k) RC  ~~~~~~(l) RCC ~~~~~(m) g-tr }}
+
+
+\graphicspath{{figures/Supplemental/}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifcvprfinal\pagestyle{empty}\fi
+\begin{document}
+
+%%%%%%%%% TITLE
+\title{Supplemental material for \\ `Global Contrast based Salient Region Detection'}
+
+
+\author{Ming-Ming Cheng$^{1}$\quad Guo-Xin Zhang$^{1}$ \quad Niloy J. Mitra$^{2}$
+    \quad Xiaolei Huang$^{3}$  \quad Shi-Min Hu$^{1}$  \\
+    $^{1}$ TNList, Tsinghua University \quad \quad
+    $^2$ KAUST / IIT Delhi  \quad \quad $^3$ Lehigh University\\
+    {\tt \small [cmm.thu]@qq.com}
+}
+
+\maketitle
+
+
+
+%%%%%%%%% BODY TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Database}\label{sec:data}
+
+We used the ground truth database shared by Achanta et al. \cite{09cvpr/Achanta_FTSaliency}.
+This \href{http://ivrg.epfl.ch/supplementary_material/RK_CVPR09/index.html}{database} contains
+1000 images as well as manually segmented salient objects. In \secref{sec:compare}, we show this database, as well
+as saliency detection results using our methods and 8 other state-of-the-art algorithms on this database.
+
+
+\section{Demo Software}\label{sec:software}
+
+We share the demo software for our saliency detection methods and the saliency cut
+application. We provide an installation program `Saliency.msi' \footnote{We created the installer in visual studio 2010 with Windows 7 OS.} to set up our software
+as well as necessary dependencies and sample data. These dependencies include ``\href{http://opencv.willowgarage.com/wiki/}{OpenCV} dlls" (`cv210.dll',
+`cxcore210.dll' and `highgui210.dll') and ``Microsoft visual studio 2010 runtime"
+(`Microsoft\_VC100CRT\_x86.msm', `Microsoft\_VC100\_OpenMP\_x86.msm'). The
+installation program creates the following files in the user-specified path: \footnote{\textcolor{red}
+{\bf Please do not use disk C as the installation path if your operating system is windows 7 or vista. Our software does not have permission to write files there.}} %after installation:
+
+\begin{itemize}
+  \item \$InstallDir\$/Bin/AttCut.exe
+  \item \$InstallDir\$/Bin/cv210.dll
+  \item \$InstallDir\$/Bin/cxcore210.dll
+  \item \$InstallDir\$/Bin/highgui210.dll
+  \item \$InstallDir\$/Bin/ImgSaliency.exe
+  \item \$InstallDir\$/Data/Src/0\_0\_272.jpg
+  \item \$InstallDir\$/AttCutDemo.bat
+  \item \$InstallDir\$/SaliencyDetectionDemo.bat
+\end{itemize}
+
+\paragraph{Saliency detection software.} In this software,
+we implemented the following methods: \FT, \LC, \SR, \LC, our HC and our RC.
+%\footnote{
+%Related methods for these abbreviations can be found in our paper.}
+(The C++ source code will be introduced in \secref{sec:code}.). After copying the original images (in *.jpg format) into the folder `\$InstallDir\$/Data/Src/', users can directly get saliency detection and evaluation results by running `\$InstallDir\$/SaliencyDetectionDemo.bat'.
+In order to avoid this program exiting without evaluating the different approaches, the manually labeled ground-truth binary masks (in *.bmp format, downloaded from the public database introduced in \secref{sec:data}) should be placed into the folder `\$InstallDir\$/Data/Src/'.
+
+After the program finishes running, it produces results in the folder '\$InstallDir\$/Data/Src/Saliency/'. The resulting saliency maps are stored in *.png format. Statistical information about precision, recall
+and related thresholds as well as comparison results as in our paper can be viewed by running the Matlab file `\$InstallDir\$/Data/ShowEvaluate.m'.
+%By running this matlab
+%file, users can get comparison results as in our paper.
+
+\paragraph{Saliency cut software.} In this software, we use our RC saliency maps
+to initialize our saliency cut method. After copying the original images as above, users can directly run '\$InstallDir\$/AttCutDemo.bat' to get saliency cut results. The
+results will be saved in the folder `\$InstallDir\$/Data/AttCut/'.
+
+\paragraph{Run time environment.} We have tested our software programs in common Windows operating systems including Windows XP, Windows Vista and Windows 7.
+
+
+\section{Source Code}\label{sec:code}
+
+We share the source code for our saliency detection software in the `Source code' subfolder of our supplemental material. The source code is provided in form of a Visual Studio (VS) 2008 solution\footnote{We share a VS 2008 solution instead of our own IDE environment VS 2010 since we suspect VS 2010 is not yet popular.}. Before compiling this solution, the user needs to put \href{http://opencv.willowgarage.com/wiki/}{OpenCV} libs and header files in the `VC++ Directories' of visual studio. This solution also contains our C++ implementation of several other methods: \FT, \SR and \LC.
+
+The source code for other saliency detection methods that we compared our methods to can be found at the following URLs:
+
+\begin{itemize}
+  \item \GB: \href{http://www.klab.caltech.edu/~harel/share/gbvs.php}{Matlab code} or  \href{http://ilab.usc.edu/toolkit/}{C++ link}.
+  \item \CA: \href{http://ivrg.epfl.ch/~achanta/SalientRegionDetection/SalientRegionDetection.html}{Windows binary code}
+  \item \AC: \href{http://webee.technion.ac.il/labs/cgm/Computer-Graphics-Multimedia/Software/Saliency/Saliency.html}{Matlab code}
+  \item \FT: \href{http://ivrg.epfl.ch/supplementary_material/RK_CVPR09/}{Matlab \& C++ code}
+  \item \IT: \href{http://www.klab.caltech.edu/~harel/share/gbvs.php}{Matlab code}
+  \item \SR: \href{http://www.its.caltech.edu/~xhou/}{Matlab code}
+\end{itemize}
+
+\section{Comparison of Saliency Detection Results}\label{sec:compare}
+In Figure 1-61, we show visual comparison between our saliency
+detection methods (HC and RC) and 8 other state-of-the-art methods: \IT, \MZ, \GB, \SR, \AC,
+\CA, \FT, and \LC. We also show comparison between our saliency cut results and the manual ground truth in these figures.
+
+{\small
+\bibliographystyle{ieee}
+\bibliography{Saliency}
+}
+
+\input{SupFig.tex}
+
+\end{document}
+
